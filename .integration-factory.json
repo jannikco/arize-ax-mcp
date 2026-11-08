@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "status": "ready",
+  "verification": "mock-only",
+  "releaseEligible": true,
+  "maintainer": "jannikco",
+  "license": "MIT",
+  "sourceRevision": "54d6850caa3506b7be5981bddf32da20bced72959020f6a95f9e493c71e8f5b4",
+  "evidence": [
+    "Actual tools/call and direct-provider request contract tests"
+  ],
+  "provenance": [
+    "https://api.arize.com/v2/spec.yaml"
+  ],
+  "id": "arize-ax-mcp",
+  "kind": "provider-connector",
+  "product": "pipmcp",
+  "title": "Arize AX MCP server",
+  "description": "Review evaluation datasets and create a dataset with user-owned example records in an existing space.",
+  "operationIds": [
+    "arize_list_datasets",
+    "arize_get_dataset",
+    "arize_create_dataset"
+  ],
+  "appSlug": "arize-ax",
+  "appName": "Arize AX",
+  "providerDocs": "https://api.arize.com/v2/spec.yaml",
+  "providerWebsite": "https://arize.com/",
+  "authentication": {
+    "type": "bearer",
+    "requiredCredentialFields": [
+      "token"
+    ],
+    "settings": {},
+    "requiredHeaderNames": [],
+    "helpUrl": "https://arize.com/docs/ax/security-and-settings/api-keys",
+    "tenantRequired": false,
+    "accountParameterNames": []
+  },
+  "attributionSlug": "github-arize-ax-mcp",
+  "artifactType": "connector",
+  "qualityVersion": 2,
+  "connectorId": "arize-ax",
+  "connector": {
+    "id": "arize-ax",
+    "name": "Arize AX",
+    "version": "0.1.0",
+    "baseUrl": "https://api.arize.com",
+    "auth": {
+      "type": "bearer",
+      "env": "ARIZE_API_KEY"
+    },
+    "tools": [
+      {
+        "name": "arize_list_datasets",
+        "description": "arize list datasets",
+        "method": "GET",
+        "path": "/v2/datasets",
+        "readOnly": true,
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": false
+        },
+        "bindings": {
+          "path": [],
+          "query": {},
+          "body": {}
+        },
+        "approvalRequired": false,
+        "provenance": [
+          "https://api.arize.com/v2/spec.yaml"
+        ],
+        "evidence": {
+          "state": "documented",
+          "providerLiveValidation": "not-run"
+        },
+        "sampleArguments": {}
+      },
+      {
+        "name": "arize_get_dataset",
+        "description": "arize get dataset",
+        "method": "GET",
+        "path": "/v2/datasets/{dataset_id}",
+        "readOnly": true,
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "dataset_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "dataset_id"
+          ],
+          "additionalProperties": false
+        },
+        "bindings": {
+          "path": [
+            "dataset_id"
+          ],
+          "query": {},
+          "body": {}
+        },
+        "approvalRequired": false,
+        "provenance": [
+          "https://api.arize.com/v2/spec.yaml"
+        ],
+        "evidence": {
+          "state": "documented",
+          "providerLiveValidation": "not-run"
+        },
+        "sampleArguments": {
+          "dataset_id": "REPLACE_WITH_AUTHORIZED_DATASET_ID"
+        }
+      },
+      {
+        "name": "arize_create_dataset",
+        "description": "arize create dataset",
+        "method": "POST",
+        "path": "/v2/datasets",
+        "readOnly": false,
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "space_id": {
+              "type": "string"
+            },
+            "examples": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "name",
+            "space_id",
+            "examples"
+          ],
+          "additionalProperties": false
+        },
+        "bindings": {
+          "path": [],
+          "query": {},
+          "body": {
+            "name": "name",
+            "space_id": "space_id",
+            "examples": "examples"
+          }
+        },
+        "approvalRequired": true,
+        "provenance": [
+          "https://api.arize.com/v2/spec.yaml"
+        ],
+        "evidence": {
+          "state": "documented",
+          "providerLiveValidation": "not-run"
+        },
+        "sampleArguments": {
+          "name": "Sandbox Example",
+          "space_id": "REPLACE_WITH_AUTHORIZED_SPACE_ID",
+          "examples": [
+            {
+              "input": "Sandbox example",
+              "output": "Expected output"
+            }
+          ]
+        }
+      }
+    ],
+    "workflow": {
+      "name": "arize-ax-workflow",
+      "description": "Review evaluation datasets and create a dataset with user-owned example records in an existing space.",
+      "steps": [
+        "arize_list_datasets",
+        "arize_get_dataset",
+        "arize_create_dataset"
+      ]
+    },
+    "provenance": [
+      "https://api.arize.com/v2/spec.yaml"
+    ],
+    "sourceEvidence": {
+      "state": "documented",
+      "providerLiveValidation": "not-run",
+      "checkedAt": "2026-11-08",
+      "operationCount": 3,
+      "kind": "official-openapi",
+      "sha256": "e98ae457c95910e2d4d72416a2c24950db07bcd6e6d43be69cdde34e10b12f49"
+    },
+    "setup": {
+      "requiresPipMcpAccount": false,
+      "credentialsHelpUrl": "https://arize.com/docs/ax/security-and-settings/api-keys",
+      "instructions": "In Arize AX go to Settings → API Keys, click + New API Key, keep User Key selected (or create a Service Key on the Service Keys tab), name it and click Create Key. Copy the key right away; it is shown only once."
+    },
+    "sampleWarning": "Example IDs are placeholders, not known provider records. Replace them with authorized sandbox/account IDs. Contact emails, file URLs and recipient numbers must be replaced with data you are authorized to use. Examples never authorize a write.",
+    "repoId": "arize-ax-mcp",
+    "appSlug": "arize-ax",
+    "product": "pipmcp",
+    "artifactType": "connector",
+    "sourceRevision": "54d6850caa3506b7be5981bddf32da20bced72959020f6a95f9e493c71e8f5b4",
+    "capabilityEvidence": {
+      "local": {
+        "level": "Tested",
+        "operations": [
+          {
+            "name": "arize_list_datasets",
+            "level": "Tested",
+            "evidenceRefs": [
+              "Provider request/stdio contract tests"
+            ],
+            "method": "contract-fixture"
+          },
+          {
+            "name": "arize_get_dataset",
+            "level": "Tested",
+            "evidenceRefs": [
+              "Provider request/stdio contract tests"
+            ],
+            "method": "contract-fixture"
+          },
+          {
+            "name": "arize_create_dataset",
+            "level": "Tested",
+            "evidenceRefs": [
+              "Provider request/stdio contract tests"
+            ],
+            "method": "contract-fixture"
+          }
+        ],
+        "evidenceRefs": [
+          "Provider request/stdio contract tests"
+        ],
+        "mode": "local"
+      },
+      "managed": {
+        "level": "Documented",
+        "operations": [
+          {
+            "name": "arize_list_datasets",
+            "level": "Documented",
+            "evidenceRefs": [],
+            "method": "documentation"
+          },
+          {
+            "name": "arize_get_dataset",
+            "level": "Documented",
+            "evidenceRefs": [],
+            "method": "documentation"
+          },
+          {
+            "name": "arize_create_dataset",
+            "level": "Documented",
+            "evidenceRefs": [],
+            "method": "documentation"
+          }
+        ],
+        "evidenceRefs": [],
+        "mode": "managed"
+      }
+    },
+    "authentication": {
+      "type": "bearer",
+      "requiredCredentialFields": [
+        "token"
+      ],
+      "settings": {},
+      "requiredHeaderNames": [],
+      "helpUrl": "https://arize.com/docs/ax/security-and-settings/api-keys",
+      "tenantRequired": false,
+      "accountParameterNames": []
+    },
+    "managedAvailability": {
+      "status": "import-required",
+      "integration": "openapi-to-mcp",
+      "checkedAt": "2026-11-08T12:29:10.433747+00:00"
+    }
+  },
+  "capabilityEvidence": {
+    "local": {
+      "level": "Tested",
+      "operations": [
+        {
+          "name": "arize_list_datasets",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        },
+        {
+          "name": "arize_get_dataset",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        },
+        {
+          "name": "arize_create_dataset",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        }
+      ],
+      "evidenceRefs": [
+        "Provider request/stdio contract tests"
+      ],
+      "mode": "local"
+    },
+    "managed": {
+      "level": "Documented",
+      "operations": [
+        {
+          "name": "arize_list_datasets",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        },
+        {
+          "name": "arize_get_dataset",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        },
+        {
+          "name": "arize_create_dataset",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        }
+      ],
+      "evidenceRefs": [],
+      "mode": "managed"
+    }
+  },
+  "utility": {
+    "problem": "Review evaluation datasets and create a dataset with user-owned example records in an existing space.",
+    "output": "Actual provider API results through local MCP tools"
+  },
+  "factory": "leadadapter-pipmcp",
+  "generatorVersion": 2
+}

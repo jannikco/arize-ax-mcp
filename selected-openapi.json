@@ -1,0 +1,105 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Arize AX selected operations",
+    "version": "0.1.0",
+    "description": "Reviewed local connector bindings for manual API import. No provider credentials are included; authentication and hosted execution require separate configuration and tests."
+  },
+  "servers": [
+    {
+      "url": "https://api.arize.com"
+    }
+  ],
+  "paths": {
+    "/v2/datasets": {
+      "get": {
+        "operationId": "arize_list_datasets",
+        "summary": "arize list datasets",
+        "parameters": [],
+        "x-pipmcp-read-only": true,
+        "responses": {
+          "200": {
+            "description": "Provider response; inspect provider documentation for result fields."
+          }
+        }
+      },
+      "post": {
+        "operationId": "arize_create_dataset",
+        "summary": "arize create dataset",
+        "parameters": [],
+        "x-pipmcp-read-only": false,
+        "responses": {
+          "200": {
+            "description": "Provider response; inspect provider documentation for result fields."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "space_id": {
+                    "type": "string"
+                  },
+                  "examples": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "name",
+                  "space_id",
+                  "examples"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/datasets/{dataset_id}": {
+      "get": {
+        "operationId": "arize_get_dataset",
+        "summary": "arize get dataset",
+        "parameters": [
+          {
+            "name": "dataset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "x-pipmcp-read-only": true,
+        "responses": {
+          "200": {
+            "description": "Provider response; inspect provider documentation for result fields."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "providerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "providerAuth": []
+    }
+  ]
+}
