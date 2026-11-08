@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-arize-ax",
+      "description": "Connect AI agents to Arize AX using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-arize-ax/SKILL.md": "cdf8616290a8bac70ff8c5fabf3f986439e0bc56a676620b22c2e9fd7e5cdde8"
+  }
+}
